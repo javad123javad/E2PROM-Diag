@@ -18,7 +18,7 @@ char filename[20];
 #define MAX_PAGE_SIZE 32
 #define DEVICE_ADDR 0x50 // 0b1010xxxx
 
-__s32 e2p_write(int file, __u16 wr_addr,
+int8_t e2p_write(int file, __u16 wr_addr,
                 const uint8_t size, const uint8_t *data)
 {
     int8_t fret = 0;
@@ -42,7 +42,7 @@ __s32 e2p_write(int file, __u16 wr_addr,
     return fret;
 }
 
-__s32 e2p_read(int file, __u16 rd_addr,
+int8_t e2p_read(int file, __u16 rd_addr,
                 const uint8_t size, uint8_t *data)
 {
     int8_t fret = 0;
@@ -65,7 +65,7 @@ int main(void)
 {
     int e2p_addr = 0x50;
     uint8_t byte_read;
-    char byte_array[] = "Salam Javad Rahimi";//{22, 23, 24, 25};
+    char byte_array[] = "Hello World, Its me, The EEPROM";
     char read_buf[62] = {0};
     sprintf(filename, "/dev/i2c-%d", adapter_nr);
     file = open(filename, O_RDWR);
