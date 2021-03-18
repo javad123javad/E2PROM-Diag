@@ -12,7 +12,7 @@
 #include <netinet/in.h> // htons
 #include <assert.h>
 #include <string.h>
-
+#include <unity/unity.h>
 static int g_i2c_dev;
 int g_i2c_number = 1;
 char g_i2c_dev_path[20];
