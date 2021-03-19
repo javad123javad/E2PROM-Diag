@@ -1,18 +1,5 @@
-#include <linux/i2c-dev.h>
-#include <i2c/smbus.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdint.h>
-#include <errno.h>
-#include <netinet/in.h> // htons
-#include <assert.h>
-#include <string.h>
-#include <unity/unity.h>
+#include <i2c_e2p.h>
+
 static int g_i2c_dev;
 int g_i2c_number = 1;
 char g_i2c_dev_path[20];

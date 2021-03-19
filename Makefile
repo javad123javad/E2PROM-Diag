@@ -286,6 +286,7 @@ top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = src test
+AM_CPPFLAGS = -I/usr/include/CppUTest/ -I/usr/include/
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
