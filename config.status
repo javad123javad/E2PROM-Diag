@@ -437,7 +437,7 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/javad/e2prdiag'
+ac_pwd='/home/javad/workspace/e2prdiag'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -651,12 +651,12 @@ S["mkdir_p"]="$(MKDIR_P)"
 S["MKDIR_P"]="/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]=""
-S["install_sh"]="${SHELL} /home/javad/e2prdiag/install-sh"
-S["MAKEINFO"]="${SHELL} /home/javad/e2prdiag/missing makeinfo"
-S["AUTOHEADER"]="${SHELL} /home/javad/e2prdiag/missing autoheader"
-S["AUTOMAKE"]="${SHELL} /home/javad/e2prdiag/missing automake-1.15"
-S["AUTOCONF"]="${SHELL} /home/javad/e2prdiag/missing autoconf"
-S["ACLOCAL"]="${SHELL} /home/javad/e2prdiag/missing aclocal-1.15"
+S["install_sh"]="${SHELL} /home/javad/workspace/e2prdiag/install-sh"
+S["MAKEINFO"]="${SHELL} /home/javad/workspace/e2prdiag/missing makeinfo"
+S["AUTOHEADER"]="${SHELL} /home/javad/workspace/e2prdiag/missing autoheader"
+S["AUTOMAKE"]="${SHELL} /home/javad/workspace/e2prdiag/missing automake-1.15"
+S["AUTOCONF"]="${SHELL} /home/javad/workspace/e2prdiag/missing autoconf"
+S["ACLOCAL"]="${SHELL} /home/javad/workspace/e2prdiag/missing aclocal-1.15"
 S["VERSION"]="1.0"
 S["PACKAGE"]="e2pdiag"
 S["CYGPATH_W"]="echo"

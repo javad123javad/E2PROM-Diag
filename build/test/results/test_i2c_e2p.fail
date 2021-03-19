@@ -1,0 +1,20 @@
+---
+:source:
+  :path: test
+  :file: test_i2c_e2p.c
+:successes: []
+:failures:
+- :test: test_i2c_e2p_NeedToImplement
+  :line: 15
+  :message: Function e2p_write.  Called more times than expected.
+  :unity_test_time: 0
+:ignores: []
+:counts:
+  :total: 1
+  :passed: 0
+  :failed: 1
+  :ignored: 0
+:stdout:
+- I2C port opened
+- I2C Setup in slave mode
+:time: 0.010793699009809643

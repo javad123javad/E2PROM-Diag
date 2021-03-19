@@ -199,12 +199,12 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/javad/e2prdiag/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/javad/workspace/e2prdiag/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/javad/e2prdiag/missing autoconf
-AUTOHEADER = ${SHELL} /home/javad/e2prdiag/missing autoheader
-AUTOMAKE = ${SHELL} /home/javad/e2prdiag/missing automake-1.15
+AUTOCONF = ${SHELL} /home/javad/workspace/e2prdiag/missing autoconf
+AUTOHEADER = ${SHELL} /home/javad/workspace/e2prdiag/missing autoheader
+AUTOMAKE = ${SHELL} /home/javad/workspace/e2prdiag/missing automake-1.15
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -226,7 +226,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/javad/e2prdiag/missing makeinfo
+MAKEINFO = ${SHELL} /home/javad/workspace/e2prdiag/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = e2pdiag
@@ -241,10 +241,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/javad/e2prdiag
-abs_srcdir = /home/javad/e2prdiag
-abs_top_builddir = /home/javad/e2prdiag
-abs_top_srcdir = /home/javad/e2prdiag
+abs_builddir = /home/javad/workspace/e2prdiag
+abs_srcdir = /home/javad/workspace/e2prdiag
+abs_top_builddir = /home/javad/workspace/e2prdiag
+abs_top_srcdir = /home/javad/workspace/e2prdiag
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -263,7 +263,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/javad/e2prdiag/install-sh
+install_sh = ${SHELL} /home/javad/workspace/e2prdiag/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -286,7 +286,6 @@ top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = src test
-AM_CPPFLAGS = -I/usr/include/CppUTest/ -I/usr/include/
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

@@ -16,7 +16,6 @@
 
 # what flags you want to pass to the C compiler & linker
 #CFLAGS = -Wall -std=c99 -O2
-#LDFLAGS = -li2c -lunity
 
 
 am__is_gnu_make = { \
@@ -103,7 +102,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_e2pdiag_OBJECTS = i2c_e2p.$(OBJEXT)
+am_e2pdiag_OBJECTS = main.$(OBJEXT) i2c_e2p.$(OBJEXT)
 e2pdiag_OBJECTS = $(am_e2pdiag_OBJECTS)
 e2pdiag_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -162,12 +161,12 @@ ETAGS = etags
 CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/javad/e2prdiag/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/javad/workspace/e2prdiag/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/javad/e2prdiag/missing autoconf
-AUTOHEADER = ${SHELL} /home/javad/e2prdiag/missing autoheader
-AUTOMAKE = ${SHELL} /home/javad/e2prdiag/missing automake-1.15
+AUTOCONF = ${SHELL} /home/javad/workspace/e2prdiag/missing autoconf
+AUTOHEADER = ${SHELL} /home/javad/workspace/e2prdiag/missing autoheader
+AUTOMAKE = ${SHELL} /home/javad/workspace/e2prdiag/missing automake-1.15
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -189,7 +188,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/javad/e2prdiag/missing makeinfo
+MAKEINFO = ${SHELL} /home/javad/workspace/e2prdiag/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = e2pdiag
@@ -204,10 +203,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/javad/e2prdiag/src
-abs_srcdir = /home/javad/e2prdiag/src
-abs_top_builddir = /home/javad/e2prdiag
-abs_top_srcdir = /home/javad/e2prdiag
+abs_builddir = /home/javad/workspace/e2prdiag/src
+abs_srcdir = /home/javad/workspace/e2prdiag/src
+abs_top_builddir = /home/javad/workspace/e2prdiag
+abs_top_srcdir = /home/javad/workspace/e2prdiag
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -226,7 +225,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/javad/e2prdiag/install-sh
+install_sh = ${SHELL} /home/javad/workspace/e2prdiag/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -247,7 +246,7 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-e2pdiag_SOURCES = i2c_e2p.c i2c_e2p.h
+e2pdiag_SOURCES = main.c i2c_e2p.c i2c_e2p.h
 all: all-am
 
 .SUFFIXES:
@@ -335,6 +334,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/i2c_e2p.Po
+include ./$(DEPDIR)/main.Po
 
 .c.o:
 	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

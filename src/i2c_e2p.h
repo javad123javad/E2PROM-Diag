@@ -17,4 +17,15 @@
 #include <string.h>
 #include <unity/unity.h> 
 
+
+
+#define MAX_PAGE_SIZE 32
+#define DEVICE_ADDR 0x50 // 0b1010xxxx 
+
+
+int8_t e2p_write(int g_i2c_dev, uint16_t wr_addr,
+                 const uint8_t size, const uint8_t *data);
+
+int8_t e2p_read(int g_i2c_dev, uint16_t rd_addr,
+                const uint8_t size, uint8_t *data);
 #endif // I2C_E2P_H

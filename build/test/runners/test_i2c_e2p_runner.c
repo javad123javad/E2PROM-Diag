@@ -2,6 +2,8 @@
 
 /*=======Automagically Detected Files To Include=====*/
 #include "unity.h"
+#include "cmock.h"
+#include "mock_i2c_e2p.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -19,12 +21,15 @@ static void CMock_Init(void)
   GlobalExpectCount = 0;
   GlobalVerifyOrder = 0;
   GlobalOrderError = NULL;
+  mock_i2c_e2p_Init();
 }
 static void CMock_Verify(void)
 {
+  mock_i2c_e2p_Verify();
 }
 static void CMock_Destroy(void)
 {
+  mock_i2c_e2p_Destroy();
 }
 
 /*=======Test Reset Options=====*/
@@ -77,5 +82,6 @@ int main(void)
   UnityBegin("test_i2c_e2p.c");
   run_test(test_i2c_e2p_NeedToImplement, "test_i2c_e2p_NeedToImplement", 15);
 
+  CMock_Guts_MemFreeFinal();
   return UnityEnd();
 }

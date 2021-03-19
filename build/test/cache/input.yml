@@ -81,7 +81,9 @@
 :cmock:
   :vendor_path: "/var/lib/gems/2.5.0/gems/ceedling-0.31.0/vendor"
   :defines: []
-  :includes: []
+  :includes:
+  - "<stdbool.h>"
+  - "<stdint.h>"
   :mock_prefix: mock_
   :when_no_prototypes: :warn
   :enforce_strict_ordering: true

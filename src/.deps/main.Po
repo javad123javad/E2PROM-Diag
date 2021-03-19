@@ -1,4 +1,4 @@
-i2c_e2p.o: i2c_e2p.c /usr/include/stdc-predef.h i2c_e2p.h \
+main.o: main.c /usr/include/stdc-predef.h i2c_e2p.h \
  /usr/include/linux/i2c-dev.h /usr/include/linux/types.h \
  /usr/include/aarch64-linux-gnu/asm/types.h \
  /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \

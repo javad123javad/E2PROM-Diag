@@ -3,3 +3,7 @@ test/i2c_e2p_test.c:
 - TEST
 src/i2c_e2p.c:
 - TEST
+build/test/mocks/mock_unistd.c:
+- TEST
+build/test/mocks/mock_i2c_e2p.c:
+- TEST
