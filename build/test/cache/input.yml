@@ -10,7 +10,7 @@
   :generate_deep_dependencies: true
   :test_file_prefix: test_
   :options_paths: []
-  :release_build: false
+  :release_build: true
   :use_auxiliary_dependencies: true
   :build_root: build
   :which_ceedling: gem
@@ -20,6 +20,7 @@
 :release_build:
   :use_assembly: false
   :artifacts: []
+  :output: i2c_diag
 :paths:
   :test:
   - "+:test/**"
@@ -199,6 +200,40 @@
     - "-D$": DEFINES_TEST_PREPROCESS
     - "-DGNU_COMPILER"
     - '"${1}"'
+  :release_compiler:
+    :executable: gcc
+    :name: default_release_compiler
+    :stderr_redirect: :none
+    :background_exec: :none
+    :optional: false
+    :arguments:
+    - ''
+    - ''
+    - -I"$": COLLECTION_PATHS_SOURCE_INCLUDE_VENDOR
+    - -I"$": COLLECTION_PATHS_RELEASE_TOOLCHAIN_INCLUDE
+    - "-D$": COLLECTION_DEFINES_RELEASE_AND_VENDOR
+    - "-DGNU_COMPILER"
+    - ''
+    - -c "${1}"
+    - -o "${2}"
+    - "-MMD"
+    - -MF "${4}"
+  :release_linker:
+    :executable: gcc
+    :name: default_release_linker
+    :stderr_redirect: :none
+    :background_exec: :none
+    :optional: false
+    :arguments:
+    - ''
+    - ''
+    - ''
+    - '"${1}"'
+    - "${5}"
+    - -o "${2}"
+    - ''
+    - "${4}"
+    - ''
 :test_compiler:
   :arguments: []
 :test_linker:

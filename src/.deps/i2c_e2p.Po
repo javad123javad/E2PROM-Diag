@@ -117,7 +117,7 @@ i2c_e2p.o: i2c_e2p.c /usr/include/stdc-predef.h i2c_e2p.h \
  /usr/include/limits.h /usr/include/aarch64-linux-gnu/bits/posix1_lim.h \
  /usr/include/aarch64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
- /usr/include/aarch64-linux-gnu/bits/posix2_lim.h
+ /usr/include/aarch64-linux-gnu/bits/posix2_lim.h i2c_ll.h
 
 /usr/include/stdc-predef.h:
 
@@ -400,3 +400,5 @@ i2c_e2p.h:
 /usr/include/linux/limits.h:
 
 /usr/include/aarch64-linux-gnu/bits/posix2_lim.h:
+
+i2c_ll.h:

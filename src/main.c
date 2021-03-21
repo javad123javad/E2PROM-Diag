@@ -11,7 +11,7 @@ int main(void)
     char byte_array[] = "Hello World, Its me, The EEPROM";
     char read_buf[62] = {0};
     sprintf(g_i2c_dev_path, "/dev/i2c-%d", g_i2c_number);
-    g_i2c_dev = open(g_i2c_dev_path, O_RDWR);
+    g_i2c_dev = i2c_open(g_i2c_dev_path, O_RDWR);
 
     if (g_i2c_dev < 0)
     {
@@ -35,6 +35,6 @@ int main(void)
     int read_num = e2p_read(g_i2c_dev, 0x0000, strlen(byte_array), read_buf); //read(file,read_buf,32);
     printf("Num Read:%d, Read Val:%s\n", read_num, read_buf);
 
-    close(g_i2c_dev);
+    i2c_close(g_i2c_dev);
     return 0;
 }

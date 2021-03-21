@@ -7,3 +7,7 @@ build/test/mocks/mock_unistd.c:
 - TEST
 build/test/mocks/mock_i2c_e2p.c:
 - TEST
+src/i2c_ll.c:
+- TEST
+build/test/mocks/mock_i2c_ll.c:
+- TEST
