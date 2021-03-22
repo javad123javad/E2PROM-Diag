@@ -20,7 +20,7 @@ int main(void)
     }
     printf("I2C port opened\n");
 
-    if (ioctl(g_i2c_dev, I2C_SLAVE, e2p_addr) < 0)
+    if (i2c_ioctl(g_i2c_dev, I2C_SLAVE, e2p_addr) < 0)
     {
         perror("I2C Error:");
         exit(1);

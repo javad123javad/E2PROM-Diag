@@ -3,7 +3,6 @@
 /*=======Automagically Detected Files To Include=====*/
 #include "unity.h"
 #include "cmock.h"
-#include "mock_i2c_e2p.h"
 #include "mock_i2c_ll.h"
 
 int GlobalExpectCount;
@@ -26,17 +25,14 @@ static void CMock_Init(void)
   GlobalExpectCount = 0;
   GlobalVerifyOrder = 0;
   GlobalOrderError = NULL;
-  mock_i2c_e2p_Init();
   mock_i2c_ll_Init();
 }
 static void CMock_Verify(void)
 {
-  mock_i2c_e2p_Verify();
   mock_i2c_ll_Verify();
 }
 static void CMock_Destroy(void)
 {
-  mock_i2c_e2p_Destroy();
   mock_i2c_ll_Destroy();
 }
 
@@ -89,10 +85,10 @@ int main(void)
 {
   UnityBegin("test_i2c_e2p.c");
   run_test(test_i2c_e2p_open, "test_i2c_e2p_open", 21);
-  run_test(test_i2c_e2p_close, "test_i2c_e2p_close", 30);
-  run_test(test_i2c_e2p_read, "test_i2c_e2p_read", 35);
-  run_test(test_i2c_e2p_write, "test_i2c_e2p_write", 55);
-  run_test(test_i2c_e2p_read_write, "test_i2c_e2p_read_write", 58);
+  run_test(test_i2c_e2p_close, "test_i2c_e2p_close", 35);
+  run_test(test_i2c_e2p_read, "test_i2c_e2p_read", 41);
+  run_test(test_i2c_e2p_write, "test_i2c_e2p_write", 78);
+  run_test(test_i2c_e2p_read_write, "test_i2c_e2p_read_write", 119);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

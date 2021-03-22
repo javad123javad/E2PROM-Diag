@@ -22,3 +22,8 @@ inline ssize_t i2c_write(int __fd, const void* __buf, size_t __n)
 {
   return write(__fd, __buf, __n);
 }
+
+inline int i2c_ioctl(const int fd, const unsigned long request, const int i2c_addr)
+{
+  return ioctl(fd, request, i2c_addr);
+}
