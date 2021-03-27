@@ -102,7 +102,8 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_e2pdiag_OBJECTS = main.$(OBJEXT) i2c_e2p.$(OBJEXT) i2c_ll.$(OBJEXT)
+am_e2pdiag_OBJECTS = main.$(OBJEXT) i2c_e2p.$(OBJEXT) \
+	arg_parser.$(OBJEXT) i2c_ll.$(OBJEXT)
 e2pdiag_OBJECTS = $(am_e2pdiag_OBJECTS)
 e2pdiag_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -246,7 +247,7 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-e2pdiag_SOURCES = main.c i2c_e2p.c i2c_e2p.h i2c_ll.c i2c_ll.h
+e2pdiag_SOURCES = main.c i2c_e2p.c arg_parser.c arg_parser.h i2c_e2p.h i2c_ll.c i2c_ll.h
 all: all-am
 
 .SUFFIXES:
@@ -333,6 +334,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/arg_parser.Po
 include ./$(DEPDIR)/i2c_e2p.Po
 include ./$(DEPDIR)/i2c_ll.Po
 include ./$(DEPDIR)/main.Po
