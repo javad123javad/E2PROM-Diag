@@ -39,8 +39,8 @@ main.o: main.c /usr/include/stdc-predef.h arg_parser.h \
  /usr/include/aarch64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/aarch64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- i2c_e2p.h /usr/include/linux/i2c-dev.h /usr/include/linux/types.h \
- /usr/include/aarch64-linux-gnu/asm/types.h \
+ i2c_e2p.h i2c_ll.h /usr/include/linux/i2c-dev.h \
+ /usr/include/linux/types.h /usr/include/aarch64-linux-gnu/asm/types.h \
  /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
  /usr/include/aarch64-linux-gnu/asm/bitsperlong.h \
  /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
@@ -89,8 +89,11 @@ main.o: main.c /usr/include/stdc-predef.h arg_parser.h \
  /usr/include/aarch64-linux-gnu/bits/environments.h \
  /usr/include/aarch64-linux-gnu/bits/confname.h \
  /usr/include/aarch64-linux-gnu/bits/getopt_posix.h \
- /usr/include/aarch64-linux-gnu/bits/unistd.h /usr/include/netinet/in.h \
- /usr/include/aarch64-linux-gnu/sys/socket.h \
+ /usr/include/aarch64-linux-gnu/bits/unistd.h /usr/include/assert.h \
+ /usr/include/string.h /usr/include/strings.h \
+ /usr/include/aarch64-linux-gnu/bits/strings_fortified.h \
+ /usr/include/aarch64-linux-gnu/bits/string_fortified.h \
+ /usr/include/netinet/in.h /usr/include/aarch64-linux-gnu/sys/socket.h \
  /usr/include/aarch64-linux-gnu/bits/types/struct_iovec.h \
  /usr/include/aarch64-linux-gnu/bits/socket.h \
  /usr/include/aarch64-linux-gnu/bits/socket_type.h \
@@ -101,10 +104,7 @@ main.o: main.c /usr/include/stdc-predef.h arg_parser.h \
  /usr/include/asm-generic/sockios.h \
  /usr/include/aarch64-linux-gnu/bits/types/struct_osockaddr.h \
  /usr/include/aarch64-linux-gnu/bits/socket2.h \
- /usr/include/aarch64-linux-gnu/bits/in.h /usr/include/assert.h \
- /usr/include/string.h /usr/include/strings.h \
- /usr/include/aarch64-linux-gnu/bits/strings_fortified.h \
- /usr/include/aarch64-linux-gnu/bits/string_fortified.h \
+ /usr/include/aarch64-linux-gnu/bits/in.h \
  /usr/local/include/unity/unity.h \
  /usr/local/include/unity/unity_internals.h /usr/include/setjmp.h \
  /usr/include/aarch64-linux-gnu/bits/setjmp.h \
@@ -226,6 +226,8 @@ arg_parser.h:
 
 i2c_e2p.h:
 
+i2c_ll.h:
+
 /usr/include/linux/i2c-dev.h:
 
 /usr/include/linux/types.h:
@@ -346,6 +348,16 @@ i2c_e2p.h:
 
 /usr/include/aarch64-linux-gnu/bits/unistd.h:
 
+/usr/include/assert.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/aarch64-linux-gnu/bits/strings_fortified.h:
+
+/usr/include/aarch64-linux-gnu/bits/string_fortified.h:
+
 /usr/include/netinet/in.h:
 
 /usr/include/aarch64-linux-gnu/sys/socket.h:
@@ -371,16 +383,6 @@ i2c_e2p.h:
 /usr/include/aarch64-linux-gnu/bits/socket2.h:
 
 /usr/include/aarch64-linux-gnu/bits/in.h:
-
-/usr/include/assert.h:
-
-/usr/include/string.h:
-
-/usr/include/strings.h:
-
-/usr/include/aarch64-linux-gnu/bits/strings_fortified.h:
-
-/usr/include/aarch64-linux-gnu/bits/string_fortified.h:
 
 /usr/local/include/unity/unity.h:
 

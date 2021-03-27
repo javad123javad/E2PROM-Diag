@@ -2,23 +2,25 @@
 #include "i2c_e2p.h"
 #include <stdint.h>
 
+#include <string.h>
+
 error_t init_parser(args_params_t *arg_param)
 {
-    const char *argp_program_version =
+    char *argp_program_version =
         "i2c_diag 1.0";
-    const char *argp_program_bug_address =
+    char *argp_program_bug_address =
         "<javad321javad@gmail.com>";
 
     static char doc[] =
-        "Example: e2pdiag -a 0x50 -r 0x0001";
+        "Example: e2pdiag -w --data=\"hello\" \"/dev/i2c-1\" 0x04 0x44";
 
-    static char args_doc[] = "ADDRESS REGISTER";
+    static char args_doc[] = "DEVICE ADDRESS REGISTER";
     /* The options we understand. */
     static struct argp_option options[] = {
         {"read", 'r',    0,      0,      "Read command"},
         {"write",'w',    0,      0,      "Write command"},
-        {"data", 'd',    "data",  OPTION_ARG_OPTIONAL,      "Output to FILE instead of standard output"
-        },
+        {"data", 'd',    "data", 0,      "Output to FILE instead of standard output"},
+        {"mode", 'm',    "master|slave", 0, "Device openning mode"},
         { 0 }
     };
 
@@ -34,7 +36,7 @@ error_t init_parser(args_params_t *arg_param)
 }
 
 
-int main(int argc, char argv[])
+int main(int argc, char **argv)
 {
     int e2p_addr = 0x50;
     int g_i2c_dev;
@@ -49,7 +51,11 @@ int main(int argc, char argv[])
     init_parser(&args_params);
 
     get_args(argc, argv, &args_params);
-   
+    
+    printf("Device Address:0x%02x\n"
+            "Register Address:0x%02x\n", 
+            (int16_t) strtol(args_params.args->args[0], NULL, 16),
+            (int16_t)strtol(args_params.args->args[1], NULL, 16));
 
     sprintf(g_i2c_dev_path, "/dev/i2c-%d", g_i2c_number);
     g_i2c_dev = i2c_open(g_i2c_dev_path, O_RDWR);

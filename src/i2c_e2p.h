@@ -1,6 +1,8 @@
 #ifndef I2C_E2P_H
 #define I2C_E2P_H
 
+#include "i2c_ll.h"
+
 #include <linux/i2c-dev.h>
 #include <i2c/smbus.h>
 #include <stdio.h>

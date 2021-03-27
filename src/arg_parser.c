@@ -34,11 +34,12 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
         }
 #endif
         break;
-    case 'v':
+    case 'm':
         // arguments->verbose = 1;
+
         break;
-    case 'o':
-        arguments->output_file = arg;
+    case 'd':
+        arguments->data = arg;
         break;
 
     case ARGP_KEY_ARG:
@@ -62,7 +63,7 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
     return 0;
 }
 
-error_t get_args(const uint8_t argc, const char **argv, args_params_t *arg_params)
+error_t get_args(const uint8_t argc, char **argv, args_params_t *arg_params)
 {
     assert(arg_params->args);
     assert(arg_params->argp_program_bug_address);
@@ -76,12 +77,8 @@ error_t get_args(const uint8_t argc, const char **argv, args_params_t *arg_param
     /* Default values. */
     arg_params->args->read = 0;
     arg_params->args->write = 0;
-    arg_params->args->output_file = "-";
-    printf("Argv[] = %s\n", argv[0]);
-    argp_parse (&argp, argc, argv, 0, 0, &arg_params->args);
+    arg_params->args->data = "-";
 
-    printf ("ARG1 = %s\nARG2 = %s\nOUTPUT_FILE = %s\nRead:%u\nWrite:%u",
-            arg_params->args->args[0], arg_params->args->args[1],
-            arg_params->args->output_file
-            , arg_params->args->read, arg_params->args->write);
+    argp_parse (&argp, argc, argv, 0, 0, arg_params->args);
+
 }
