@@ -20,7 +20,8 @@ error_t init_parser(args_params_t *arg_param)
         {"read", 'r',    0,      0,      "Read command"},
         {"write",'w',    0,      0,      "Write command"},
         {"data", 'd',    "data", 0,      "Output to FILE instead of standard output"},
-        {"mode", 'm',    "master|slave", 0, "Device openning mode"},
+        {"master", 'm',  0,      0,      "Device operates in master mode"},
+        {"slave", 's',   0,      0,      "Device operate in slave mode"},
         { 0 }
     };
 
@@ -53,9 +54,17 @@ int main(int argc, char **argv)
     get_args(argc, argv, &args_params);
     
     printf("Device Address:0x%02x\n"
-            "Register Address:0x%02x\n", 
-            (int16_t) strtol(args_params.args->args[0], NULL, 16),
-            (int16_t)strtol(args_params.args->args[1], NULL, 16));
+            "Register Address:0x%02x\n"
+            "Write:%d\n"
+            "Read:%d\n"
+            "Mode:%d\n" 
+            "Data:%s\n",
+            (int16_t)strtol(args_params.args->args[0], NULL, 16),
+            (int16_t)strtol(args_params.args->args[1], NULL, 16),
+            args_params.args->write,
+            args_params.args->read,
+            args_params.args->dev_mode,
+            args_params.args->data);
 
     sprintf(g_i2c_dev_path, "/dev/i2c-%d", g_i2c_number);
     g_i2c_dev = i2c_open(g_i2c_dev_path, O_RDWR);

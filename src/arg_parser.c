@@ -35,8 +35,10 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
 #endif
         break;
     case 'm':
-        // arguments->verbose = 1;
-
+        (MODE_SLAVE == arguments->dev_mode)?argp_error(state, "Only one mode (master or slave) should be specified."):(arguments->dev_mode = MODE_MASTER);
+        break;
+    case 's':
+        (MODE_MASTER == arguments->dev_mode)?argp_error(state, "Only one mode (master or slave) should be specified."):(arguments->dev_mode = MODE_SLAVE);
         break;
     case 'd':
         arguments->data = arg;

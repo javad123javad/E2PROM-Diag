@@ -4,12 +4,17 @@
 #include <stdint.h>
 #include <argp.h>
 
+typedef enum DEV_MODE
+{
+    MODE_MASTER=1,
+    MODE_SLAVE
+}dev_mode_t;
 typedef struct _P_ARGS_
 {
     char *args[2];                /* arg1 & arg2 */
     uint8_t  read, write;
+    dev_mode_t dev_mode;
     char *data;
-    char *dev_mode;
 } arguments_t;
 
 typedef struct _ARS_PARAMS
