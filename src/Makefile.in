@@ -89,7 +89,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = e2pdiag$(EXEEXT)
+bin_PROGRAMS = i2cdiag$(EXEEXT)
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -102,10 +102,10 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_e2pdiag_OBJECTS = main.$(OBJEXT) i2c_e2p.$(OBJEXT) \
+am_i2cdiag_OBJECTS = main.$(OBJEXT) i2c_e2p.$(OBJEXT) \
 	arg_parser.$(OBJEXT) i2c_ll.$(OBJEXT)
-e2pdiag_OBJECTS = $(am_e2pdiag_OBJECTS)
-e2pdiag_LDADD = $(LDADD)
+i2cdiag_OBJECTS = $(am_i2cdiag_OBJECTS)
+i2cdiag_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -134,8 +134,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(e2pdiag_SOURCES)
-DIST_SOURCES = $(e2pdiag_SOURCES)
+SOURCES = $(i2cdiag_SOURCES)
+DIST_SOURCES = $(i2cdiag_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -247,7 +247,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-e2pdiag_SOURCES = main.c i2c_e2p.c arg_parser.c arg_parser.h i2c_e2p.h i2c_ll.c i2c_ll.h
+i2cdiag_SOURCES = main.c i2c_e2p.c arg_parser.c arg_parser.h i2c_e2p.h i2c_ll.c i2c_ll.h
 all: all-am
 
 .SUFFIXES:
@@ -324,9 +324,9 @@ uninstall-binPROGRAMS:
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 
-e2pdiag$(EXEEXT): $(e2pdiag_OBJECTS) $(e2pdiag_DEPENDENCIES) $(EXTRA_e2pdiag_DEPENDENCIES) 
-	@rm -f e2pdiag$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(e2pdiag_OBJECTS) $(e2pdiag_LDADD) $(LIBS)
+i2cdiag$(EXEEXT): $(i2cdiag_OBJECTS) $(i2cdiag_DEPENDENCIES) $(EXTRA_i2cdiag_DEPENDENCIES) 
+	@rm -f i2cdiag$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(i2cdiag_OBJECTS) $(i2cdiag_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

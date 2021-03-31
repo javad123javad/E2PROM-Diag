@@ -11,3 +11,5 @@ src/i2c_ll.c:
 - TEST
 build/test/mocks/mock_i2c_ll.c:
 - TEST
+src/arg_parser.c:
+- TEST

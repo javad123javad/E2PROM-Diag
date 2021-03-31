@@ -5,7 +5,37 @@
 args_params_t g_params = {0};
 /*********************************************************/
 
+error_t init_parser(args_params_t *arg_param)
+{
+    char *argp_program_version =
+        "e2pdiag 1.0";
+    char *argp_program_bug_address =
+        "<javad321javad@gmail.com>";
 
+    static char doc[] =
+        "Example: e2pdiag -w --data=\"hello\" \"/dev/i2c-1\" 0x04 0x44";
+
+    static char args_doc[] = "DEVICE ADDRESS REGISTER";
+    /* The options we understand. */
+    static struct argp_option options[] = {
+        {"read", 'r',    0,      0,      "Read command"},
+        {"write",'w',    0,      0,      "Write command"},
+        {"data", 'd',    "data", 0,      "Output to FILE instead of standard output"},
+        {"master", 'm',  0,      0,      "Device operates in master mode"},
+        {"slave", 's',   0,      0,      "Device operate in slave mode"},
+        { 0 }
+    };
+
+    arguments_t args = {0};
+
+    arg_param->argp_program_version = argp_program_version;
+    arg_param->argp_program_bug_address = argp_program_bug_address;
+    arg_param->doc = doc;
+    arg_param->args_doc =  args_doc;
+    arg_param->options = options;
+    arg_param->args = &args;
+
+}
 
 error_t parse_opt (int key, char *arg, struct argp_state *state)
 {
