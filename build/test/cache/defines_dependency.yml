@@ -1,15 +1,5 @@
 ---
-test/i2c_e2p_test.c:
+src/arg_parser.c:
 - TEST
 src/i2c_e2p.c:
-- TEST
-build/test/mocks/mock_unistd.c:
-- TEST
-build/test/mocks/mock_i2c_e2p.c:
-- TEST
-src/i2c_ll.c:
-- TEST
-build/test/mocks/mock_i2c_ll.c:
-- TEST
-src/arg_parser.c:
 - TEST

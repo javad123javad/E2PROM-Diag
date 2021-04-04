@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <argp.h>
 
+#define ARGS_NUM    3 //Number of mandatory arguments
 typedef enum DEV_MODE
 {
     MODE_MASTER = 1,
@@ -11,8 +12,10 @@ typedef enum DEV_MODE
 } dev_mode_t;
 typedef struct _P_ARGS_
 {
-    char *args[2]; /* arg1 & arg2 */
-    uint8_t read, write;
+    char *args[ARGS_NUM]; /* arg1 & arg2 */
+    uint8_t read;
+    uint8_t write;
+    uint8_t nbytes; //Number of bytes to read/write
     dev_mode_t dev_mode;
     char *data;
 } arguments_t;

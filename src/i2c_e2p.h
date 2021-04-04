@@ -25,6 +25,9 @@
 #define DEVICE_ADDR 0x50 // 0b1010xxxx 
 
 
+i2c_dev_t e2p_open(const char *i2c_dev);
+i2c_dev_t e2p_close(const char *i2c_dev);
+
 int8_t e2p_write(int g_i2c_dev, uint16_t wr_addr,
                  const uint8_t size, const uint8_t *data);
 

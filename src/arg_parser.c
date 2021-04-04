@@ -2,7 +2,10 @@
 #include <argp.h>
 #include <string.h>
 #include <assert.h>
+#include <stdlib.h>
+
 args_params_t g_params = {0};
+arguments_t g_args = {0};
 /*********************************************************/
 
 error_t init_parser(args_params_t *arg_param)
@@ -13,27 +16,28 @@ error_t init_parser(args_params_t *arg_param)
         "<javad321javad@gmail.com>";
 
     static char doc[] =
-        "Example: e2pdiag -w --data=\"hello\" \"/dev/i2c-1\" 0x04 0x44";
+        "Example: e2pdiag -w --data=\"hello\" \"/dev/i2c-1\" /dev/i2c-1 0x04 0x44";
 
-    static char args_doc[] = "DEVICE ADDRESS REGISTER";
+    static char args_doc[] = "DEV ADDR REG";
     /* The options we understand. */
-    static struct argp_option options[] = {
+    const static struct argp_option options[] = {
         {"read", 'r',    0,      0,      "Read command"},
         {"write",'w',    0,      0,      "Write command"},
         {"data", 'd',    "data", 0,      "Output to FILE instead of standard output"},
+        {"Nbytes", 'N',  "bytes",      0,      "Number of bytes to read from device"},
         {"master", 'm',  0,      0,      "Device operates in master mode"},
         {"slave", 's',   0,      0,      "Device operate in slave mode"},
         { 0 }
     };
 
-    arguments_t args = {0};
+    
 
     arg_param->argp_program_version = argp_program_version;
     arg_param->argp_program_bug_address = argp_program_bug_address;
     arg_param->doc = doc;
     arg_param->args_doc =  args_doc;
     arg_param->options = options;
-    arg_param->args = &args;
+    arg_param->args = &g_args;
 
 }
 
@@ -73,9 +77,12 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
     case 'd':
         arguments->data = arg;
         break;
+    case 'N':
+        arguments->nbytes = atoi(arg);//strtol(arg, NULL, 10);
+        break;
 
     case ARGP_KEY_ARG:
-        if (state->arg_num >= 2)
+        if (state->arg_num >= ARGS_NUM)
             /* Too many arguments. */
             argp_usage (state);
 
@@ -84,7 +91,7 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
         break;
 
     case ARGP_KEY_END:
-        if (state->arg_num < 2)
+        if (state->arg_num < ARGS_NUM)
             /* Not enough arguments. */
             argp_usage (state);
         break;
