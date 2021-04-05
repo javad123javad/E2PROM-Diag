@@ -28,6 +28,8 @@ typedef struct _ARS_PARAMS
     char *args_doc;
     arguments_t *args;
     struct argp_option *options;
+    int dev_file;
+    int dev_addr;
 } args_params_t;
 
 error_t init_parser(args_params_t *arg_param);
