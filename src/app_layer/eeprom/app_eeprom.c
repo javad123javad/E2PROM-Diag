@@ -2,6 +2,9 @@
 
 static int g_i2c_dev;
 
+#define DEBUG 0
+#define _DEBUG(fmt, args...) if(DEBUG) printf("%s:%s:%d: "fmt, __FILE__, __FUNCTION__, __LINE__, args)
+
 int main(int argc, char**argv)
 {
     int e2p_addr = 0x50;
@@ -17,10 +20,10 @@ int main(int argc, char**argv)
 
     args_params.dev_addr = (int16_t)strtol(args_params.args->args[1], NULL, 16);
 
-    printf(
+    _DEBUG(
         "Interface:%s\n"
-        "Device Address:%d\n"
-        "Register Address:%d\n"
+        "Device Address:0x%02x\n"
+        "Register Address:0x%02x\n"
         "Write:%d\n"
         "Read:%d\n"
         "Mode:%d\n"
@@ -39,34 +42,60 @@ int main(int argc, char**argv)
     fret = app_open(&args_params);
     if(fret < 0)
     {
-        fprintf(stderr, "Error while openning %s \n", args_params.args->args[0]);
-        exit(1);
+        printf("Openning %s\t[FAILED] \n", args_params.args->args[0]);
     }
+    else
+    {
+        printf("\t[Opened]\n");
 
-    app_write(byte_array, strlen(byte_array), &args_params);
-    /* read the message from eeprom */
-    
-    int read_num = app_read(read_buf, &args_params);
-    printf("Read %d bytes: %s\n", read_num, read_buf);
-    
-    app_close(&args_params);
+        if(args_params.args->write)
+        {
+            fret = app_write(args_params.args->data, args_params.args->nbytes, &args_params);
 
-    return 0;
+            if(fret < 0)
+            {
+                printf("Write Operation Failed: %d.\n",fret);
+            }
+            else
+            {
+                printf("%d bytes written.\n", args_params.args->nbytes);
+            }
+
+        }
+
+        if (args_params.args->read)
+        {
+            /* read the message from eeprom */
+
+            int read_num = app_read(read_buf, &args_params);
+            if(fret < 0)
+            {
+                fprintf(stderr, "Read Operation Failed.\n");
+            }
+            else
+            {
+                printf("Read %d bytes: %s\n", read_num, read_buf);
+            }
+        }
+
+        app_close(&args_params);
+    }
+    return fret;
 }
 
 int8_t app_open(args_params_t* args_params)
 {
     int fret = 0;
+    
+    printf("Openning I2C port...");
     args_params->dev_file = ll_i2c_open(args_params->args->args[0], O_RDWR);
 
     if (args_params->dev_file < 0)
     {
-        fprintf(stderr, "Unable to open I2C port: %s\n", args_params->args->args[0]);
         fret = args_params->dev_file;
     }
     else
     {
-        printf("I2C port opened\n");
         fret = ll_i2c_ioctl(args_params->dev_file, I2C_SLAVE, args_params->dev_addr);
     }
     return fret;
@@ -76,7 +105,6 @@ int8_t app_open(args_params_t* args_params)
 int8_t app_close(args_params_t* dev_args)
 {
     return ll_i2c_close(dev_args->dev_file);
-
 }
 
 uint32_t app_read(char *read_buf, const args_params_t* dev_args)
