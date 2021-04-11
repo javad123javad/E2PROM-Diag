@@ -285,7 +285,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = src test src/app_layer/eeprom
+SUBDIRS = src test src/app_layer/eeprom src/app_layer/bmp280
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

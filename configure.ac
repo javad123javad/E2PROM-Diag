@@ -8,6 +8,7 @@ AC_CONFIG_FILES([
  Makefile
  src/Makefile
  src/app_layer/eeprom/Makefile
+ src/app_layer/bmp280/Makefile
  test/Makefile
 ])
 AC_OUTPUT
