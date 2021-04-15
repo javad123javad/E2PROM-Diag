@@ -6,6 +6,8 @@
 
 #include "stdio.h"
 #include "bmp280.h"
+#include "arg_parser.h"
+#include "i2c_e2p.h"
 
 void delay_ms(uint32_t period_ms);
 int8_t i2c_reg_write(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t length);
@@ -13,11 +15,14 @@ int8_t i2c_reg_read(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint1
 int8_t spi_reg_write(uint8_t cs, uint8_t reg_addr, uint8_t *reg_data, uint16_t length);
 int8_t spi_reg_read(uint8_t cs, uint8_t reg_addr, uint8_t *reg_data, uint16_t length);
 void print_rslt(const char api_name[], int8_t rslt);
+/************ APP Functions **************/
+int8_t app_open(args_params_t* args_params);
 
-int main(void)
+int main(int argc, char **argv)
 {
     int8_t rslt;
     struct bmp280_dev bmp;
+    args_params_t args_params = {0};
 
     /* Map the delay function pointer with the function responsible for implementing the delay */
     bmp.delay_ms = delay_ms;
@@ -31,7 +36,26 @@ int main(void)
     /* Map the I2C read & write function pointer with the functions responsible for I2C bus transfer */
     bmp.read = i2c_reg_read;
     bmp.write = i2c_reg_write;
+    /********** Parsing Input ******************/
 
+    init_parser(&args_params);
+
+    get_args(argc, argv, &args_params);
+
+    printf("Device Address:0x%02x\n"
+           "Register Address:0x%02x\n"
+           "Write:%d\n"
+           "Read:%d\n"
+           "Mode:%d\n"
+           "Data:%s\n"
+           "Nbytes:%d",
+           (int16_t)strtol(args_params.args->args[0], NULL, 16),
+           (int16_t)strtol(args_params.args->args[1], NULL, 16),
+           args_params.args->write,
+           args_params.args->read,
+           args_params.args->dev_mode,
+           args_params.args->data,
+           args_params.args->nbytes);
     /* To enable SPI interface: comment the above 4 lines and uncomment the below 4 lines */
 
     /*
@@ -45,7 +69,26 @@ int main(void)
 
     return 0;
 }
+//////////////////////
+int8_t app_open(args_params_t* args_params)
+{
+    int fret = 0;
 
+    printf("Openning I2C port...");
+    args_params->dev_file = ll_i2c_open(args_params->args->args[0], O_RDWR);
+
+    if (args_params->dev_file < 0)
+    {
+        fret = args_params->dev_file;
+    }
+    else
+    {
+        fret = ll_i2c_ioctl(args_params->dev_file, I2C_SLAVE, args_params->dev_addr);
+    }
+    return fret;
+
+}
+//////////////////////
 /*!
  *  @brief Function that creates a mandatory delay required in some of the APIs such as "bmg250_soft_reset",
  *      "bmg250_set_foc", "bmg250_perform_self_test"  and so on.
@@ -57,6 +100,7 @@ int main(void)
 void delay_ms(uint32_t period_ms)
 {
     /* Implement the delay routine according to the target machine */
+    usleep(1000* period_ms);
 }
 
 /*!
