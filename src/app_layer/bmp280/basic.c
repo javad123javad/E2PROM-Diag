@@ -8,6 +8,8 @@
 #include "bmp280.h"
 #include "arg_parser.h"
 #include "i2c_e2p.h"
+#define DEBUG 1
+#define _DEBUG(fmt, args...) if(DEBUG) printf("%s:%s:%d: "fmt, __FILE__, __FUNCTION__, __LINE__, args)
 
 void delay_ms(uint32_t period_ms);
 int8_t i2c_reg_write(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t length);
@@ -17,10 +19,14 @@ int8_t spi_reg_read(uint8_t cs, uint8_t reg_addr, uint8_t *reg_data, uint16_t le
 void print_rslt(const char api_name[], int8_t rslt);
 /************ APP Functions **************/
 int8_t app_open(args_params_t* args_params);
+int8_t app_close(args_params_t* dev_args);
+int g_i2c_dev;
 
 int main(int argc, char **argv)
 {
+    int e2p_addr = 0x50;
     int8_t rslt;
+    int8_t fret = 0;
     struct bmp280_dev bmp;
     args_params_t args_params = {0};
 
@@ -38,24 +44,51 @@ int main(int argc, char **argv)
     bmp.write = i2c_reg_write;
     /********** Parsing Input ******************/
 
+
     init_parser(&args_params);
 
     get_args(argc, argv, &args_params);
 
-    printf("Device Address:0x%02x\n"
-           "Register Address:0x%02x\n"
-           "Write:%d\n"
-           "Read:%d\n"
-           "Mode:%d\n"
-           "Data:%s\n"
-           "Nbytes:%d",
-           (int16_t)strtol(args_params.args->args[0], NULL, 16),
-           (int16_t)strtol(args_params.args->args[1], NULL, 16),
-           args_params.args->write,
-           args_params.args->read,
-           args_params.args->dev_mode,
-           args_params.args->data,
-           args_params.args->nbytes);
+    args_params.dev_addr = (int16_t)strtol(args_params.args->args[1], NULL, 16);
+
+    _DEBUG(
+        "Interface:%s\n"
+        "Device Address:0x%02x\n"
+        "Register Address:0x%02x\n"
+        "Write:%d\n"
+        "Read:%d\n"
+        "Mode:%d\n"
+        "Data:%s\n"
+        "Bytes:%d\n",
+        args_params.args->args[0],
+        e2p_addr,//
+        (int16_t)strtol(args_params.args->args[2], NULL, 16),
+        args_params.args->write,
+        args_params.args->read,
+        args_params.args->dev_mode,
+        args_params.args->data,
+        args_params.args->nbytes);
+
+    fret = app_open(&args_params);
+    if(fret < 0)
+    {
+        printf("Openning %s\t[FAILED] \n", args_params.args->args[0]);
+    }
+    else
+    {
+        printf("\t[Opened]\n");
+
+        if(args_params.args->write)
+        {
+
+        }
+
+        if (args_params.args->read)
+        {
+            /* read the message from eeprom */
+        }
+
+    }
     /* To enable SPI interface: comment the above 4 lines and uncomment the below 4 lines */
 
     /*
@@ -66,6 +99,7 @@ int main(int argc, char **argv)
      */
     rslt = bmp280_init(&bmp);
     print_rslt(" bmp280_init status", rslt);
+    app_close(&args_params);
 
     return 0;
 }
@@ -74,8 +108,9 @@ int8_t app_open(args_params_t* args_params)
 {
     int fret = 0;
 
-    printf("Openning I2C port...");
+    printf("Openning I2C port:%s...\n",args_params->args->args[0]);
     args_params->dev_file = ll_i2c_open(args_params->args->args[0], O_RDWR);
+    g_i2c_dev = args_params->dev_file;
 
     if (args_params->dev_file < 0)
     {
@@ -87,6 +122,11 @@ int8_t app_open(args_params_t* args_params)
     }
     return fret;
 
+}
+//////////////////////
+int8_t app_close(args_params_t* dev_args)
+{
+    return ll_i2c_close(dev_args->dev_file);
 }
 //////////////////////
 /*!
@@ -120,7 +160,25 @@ int8_t i2c_reg_write(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint
 {
 
     /* Implement the I2C write routine according to the target machine. */
-    return -1;
+    int8_t fret = 0;
+    uint8_t tmp_buf[MAX_PAGE_SIZE + 2] = {0};
+
+    tmp_buf[0] = reg_addr >> 8;
+    tmp_buf[1] = reg_addr & 0xff;
+
+    for (uint8_t counter = 2; counter < length + 2; counter++)
+    {
+        tmp_buf[counter] = reg_data[counter - 2];
+    }
+
+    if (ll_i2c_write(g_i2c_dev, tmp_buf, (length + 2)) != (length + 2))
+    {
+        printf("Write number mismatch.\n");
+        fret = -1;
+    }
+
+    usleep(2000);
+    return fret;
 }
 
 /*!
@@ -136,12 +194,29 @@ int8_t i2c_reg_write(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint
  *  @retval >0 -> Failure Info
  *
  */
-int8_t i2c_reg_read(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t length)
+int8_t i2c_reg_read(uint8_t i2c_dev, uint8_t reg_addr, uint8_t *reg_data, uint16_t length)
 {
 
     /* Implement the I2C read routine according to the target machine. */
-    return -1;
+    /* read the message from eeprom */
+    int8_t fret = 0;
+    uint8_t reg_add_arr[2] = {0};
+    assert(reg_data);
+
+    reg_add_arr[0] = reg_addr >> 8;
+    reg_add_arr[1] = reg_addr & 0xff;
+    fret = ll_i2c_write(g_i2c_dev, reg_add_arr, 0x02);
+    if ( fret != 2)
+    {
+        printf("Write Problem in read:Dev File:%d\tReg Data:%s\tLen:%d\t fret:%d\n", g_i2c_dev, reg_data, length, fret);
+        perror("[I2C Write Error]:");
+        return -1;
+    }
+
+    fret = ll_i2c_read(g_i2c_dev, reg_data, length);
+    return fret;
 }
+
 
 /*!
  *  @brief Function for writing the sensor's registers through SPI bus.
@@ -160,6 +235,7 @@ int8_t spi_reg_write(uint8_t cs, uint8_t reg_addr, uint8_t *reg_data, uint16_t l
 {
 
     /* Implement the SPI write routine according to the target machine. */
+    
     return -1;
 }
 
